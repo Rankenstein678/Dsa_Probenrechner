@@ -1,8 +1,7 @@
 <resources>
-    <string name="app_name">dsa helper</string>
+    <string name="app_name">DSA Probenrechner</string>
     <string name="stats_file_key">com.rankenstein.dsahelper.stats</string>
     <string name="talentwert">Talentwert: %1$d</string>
     <string name="modifikator">Modifikator: %1$d</string>
-    <string name="result">Chance: %1$s \u0025 \n durchschnittliche TaP*: %2$s</string>
 
 </resources>

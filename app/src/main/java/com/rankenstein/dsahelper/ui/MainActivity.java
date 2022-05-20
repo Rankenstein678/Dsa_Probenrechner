@@ -20,9 +20,10 @@ import com.rankenstein.dsahelper.logic.ChanceLogic;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
-    //TODO: Unabhäbig von Text der Knöpfe machen
+    //TODO: Unabhängig von Text der Knöpfe machen
     private int mod, taw;
 
     private ArrayList<String> stats;
@@ -35,6 +36,12 @@ public class MainActivity extends AppCompatActivity {
         taw = 0;
         mod = 0;
         initViews();
+        try {
+            Objects.requireNonNull(getSupportActionBar()).setTitle("Probenrechner");
+        } catch (NullPointerException e) {
+            System.out.println("Couldn't get Action Bar");
+        }
+
     }
 
     private void initViews() {

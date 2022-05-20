@@ -8,6 +8,8 @@ import android.widget.EditText;
 import androidx.appcompat.app.AppCompatActivity;
 import com.rankenstein.dsahelper.R;
 
+import java.util.Objects;
+
 public class StatsActivity extends AppCompatActivity {
     private EditText numMU, numKL, numIN, numCH, numFF, numGE, numKO, numKK;
 
@@ -16,6 +18,11 @@ public class StatsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_stats);
         initViews();
+        try {
+            Objects.requireNonNull(getSupportActionBar()).setTitle("Eigenschaften");
+        } catch (NullPointerException e) {
+            System.out.println("Couldn't get Action Bar");
+        }
     }
 
 
