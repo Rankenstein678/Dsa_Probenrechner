@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.StatsActivity">
+
+    <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:text="0"
+            android:id="@+id/numKK"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/numKO"
+            app:layout_constraintEnd_toEndOf="@+id/numKO"/>
+
+    <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:text="0"
+            android:id="@+id/numKO"
+            app:layout_constraintTop_toBottomOf="@+id/numGE"
+            app:layout_constraintBottom_toTopOf="@+id/numKK"
+            app:layout_constraintEnd_toEndOf="@+id/numGE"/>
+
+    <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:text="0"
+            android:id="@+id/numFF"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/numGE"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="32dp"/>
+
+    <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:text="0"
+            android:id="@+id/numCH"
+            app:layout_constraintBottom_toBottomOf="@+id/textView4"
+            app:layout_constraintTop_toTopOf="@+id/textView4"
+            app:layout_constraintStart_toEndOf="@+id/textView4"
+            android:layout_marginStart="24dp"/>
+
+    <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:text="0"
+            android:id="@+id/numIN"
+            app:layout_constraintBottom_toBottomOf="@+id/textView10"
+            app:layout_constraintTop_toTopOf="@+id/textView10"
+            app:layout_constraintStart_toEndOf="@+id/textView10"
+            android:layout_marginStart="24dp"/>
+
+    <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:text="0"
+            android:id="@+id/numKL"
+            app:layout_constraintBottom_toBottomOf="@+id/textView3"
+            app:layout_constraintTop_toTopOf="@+id/textView3"
+            app:layout_constraintStart_toEndOf="@+id/textView3"
+            android:layout_marginStart="24dp"/>
+
+    <TextView
+            android:text="Stats"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="64dp"
+            android:textSize="34sp"/>
+
+    <TextView
+            android:text="MU"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView2"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/textView3"
+            android:typeface="monospace"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="32dp"
+            android:textSize="18sp"/>
+
+    <TextView
+            android:text="KL"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView3"
+            app:layout_constraintTop_toBottomOf="@+id/textView2"
+            app:layout_constraintBottom_toTopOf="@+id/textView10"
+            app:layout_constraintStart_toStartOf="@+id/textView2"
+            android:typeface="monospace"
+            android:textSize="18sp"/>
+
+    <TextView
+            android:text="CH"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView4"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView10"
+            app:layout_constraintStart_toStartOf="@+id/textView10"
+            android:typeface="monospace"
+            android:textSize="18sp"/>
+
+    <TextView
+            android:text="FF"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView6"
+            android:typeface="monospace"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="@+id/numFF"
+            app:layout_constraintTop_toTopOf="@+id/numFF"
+            app:layout_constraintEnd_toStartOf="@+id/numFF"
+            android:layout_marginEnd="24dp"/>
+
+    <TextView
+            android:text="GE"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView7"
+            android:typeface="monospace"
+            android:textSize="18sp"
+            app:layout_constraintTop_toTopOf="@+id/numGE"
+            app:layout_constraintBottom_toBottomOf="@+id/numGE"
+            app:layout_constraintEnd_toStartOf="@+id/numGE"
+            android:layout_marginEnd="24dp"/>
+
+    <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:text="0"
+            android:id="@+id/numGE"
+            app:layout_constraintTop_toBottomOf="@+id/numFF"
+            app:layout_constraintBottom_toTopOf="@+id/numKO"
+            app:layout_constraintEnd_toEndOf="@+id/numFF"/>
+
+    <TextView
+            android:text="KO"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView8"
+            android:typeface="monospace"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="@+id/numKO"
+            app:layout_constraintTop_toTopOf="@+id/numKO"
+            app:layout_constraintEnd_toStartOf="@+id/numKO"
+            android:layout_marginEnd="24dp"/>
+
+    <TextView
+            android:text="IN"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView10"
+            app:layout_constraintTop_toBottomOf="@+id/textView3"
+            app:layout_constraintBottom_toTopOf="@+id/textView4"
+            app:layout_constraintStart_toStartOf="@+id/textView3"
+            android:typeface="monospace"
+            android:textSize="18sp"/>
+
+    <TextView
+            android:text="KK"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView11"
+            android:typeface="monospace"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="@+id/numKK"
+            app:layout_constraintTop_toTopOf="@+id/numKK"
+            app:layout_constraintEnd_toStartOf="@+id/numKK"
+            android:layout_marginEnd="24dp"/>
+
+    <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@+id/textView2"
+            app:layout_constraintStart_toEndOf="@+id/textView2"
+            app:layout_constraintTop_toTopOf="@+id/textView2"
+            android:layout_marginStart="24dp"
+            android:inputType="number"
+            android:text="0"
+            android:id="@+id/numMU"/>
+
+    <Button
+            android:text="Speichern"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/btnSave"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginBottom="32dp"/>
+</androidx.constraintlayout.widget.ConstraintLayout>
