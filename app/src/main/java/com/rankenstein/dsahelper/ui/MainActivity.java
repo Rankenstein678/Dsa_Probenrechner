@@ -1,5 +1,7 @@
 package com.rankenstein.dsahelper.ui;
 
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -7,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -157,10 +160,10 @@ public class MainActivity extends AppCompatActivity {
 
         builder.setPositiveButton("OK", (dialog, which) -> {
             dialog.dismiss();
-            field.accept(Integer.parseInt(txtInput.getText().toString()));
+            int value = txtInput.getText().toString().isEmpty() ? 0: Integer.parseInt(txtInput.getText().toString());
+            field.accept(value);
         });
         builder.setNegativeButton("Abbrechen", (dialog, which) -> dialog.cancel());
-
         builder.show();
     }
 
