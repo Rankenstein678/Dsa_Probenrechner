@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.material.snackbar.Snackbar;
 import com.rankenstein.dsahelper.R;
@@ -13,6 +14,7 @@ import com.rankenstein.dsahelper.logic.Constants;
 import java.util.Objects;
 
 public class StatsActivity extends AppCompatActivity {
+    private String mu, kl, in, ch, ff, ge, ko, kk;
     private EditText numMU, numKL, numIN, numCH, numFF, numGE, numKO, numKK;
 
     @Override
@@ -32,7 +34,7 @@ public class StatsActivity extends AppCompatActivity {
         Button saveBtn = findViewById(R.id.btnSave);
         saveBtn.setOnClickListener((View v) -> {
             saveStats();
-            Snackbar.make(saveBtn,"Änderungen gespeichert!",Snackbar.LENGTH_SHORT).show();
+            Snackbar.make(saveBtn, "Änderungen gespeichert!", Snackbar.LENGTH_SHORT).show();
         });
         numMU = findViewById(R.id.numMU);
         numKL = findViewById(R.id.numKL);
@@ -46,8 +48,7 @@ public class StatsActivity extends AppCompatActivity {
     }
 
     private void saveStats() {
-        SharedPreferences prefs = getSharedPreferences(
-                Constants.PREFERENCE_FILE_STATS, MODE_PRIVATE);
+        SharedPreferences prefs = getSharedPreferences(Constants.PREFERENCE_FILE_STATS, MODE_PRIVATE);
         SharedPreferences.Editor editor = prefs.edit();
         //TODO: Konstanten Klasse
         editor.putInt(Constants.MU, Integer.parseInt(numMU.getText().toString()));
@@ -62,17 +63,41 @@ public class StatsActivity extends AppCompatActivity {
     }
 
     private void loadStats() {
-        SharedPreferences prefs = getSharedPreferences(
-                Constants.PREFERENCE_FILE_STATS, MODE_PRIVATE);
-        numMU.setText(String.valueOf(prefs.getInt(Constants.MU, 0)));
-        numKL.setText(String.valueOf(prefs.getInt(Constants.MU, 0)));
-        numIN.setText(String.valueOf(prefs.getInt(Constants.MU, 0)));
-        numCH.setText(String.valueOf(prefs.getInt(Constants.MU, 0)));
-        numFF.setText(String.valueOf(prefs.getInt(Constants.MU, 0)));
-        numGE.setText(String.valueOf(prefs.getInt(Constants.MU, 0)));
-        numKO.setText(String.valueOf(prefs.getInt(Constants.MU, 0)));
-        numKK.setText(String.valueOf(prefs.getInt(Constants.MU, 0)));
+        SharedPreferences prefs = getSharedPreferences(Constants.PREFERENCE_FILE_STATS, MODE_PRIVATE);
+        mu = String.valueOf(prefs.getInt(Constants.MU, 0));
+        kl = String.valueOf(prefs.getInt(Constants.KL, 0));
+        in = String.valueOf(prefs.getInt(Constants.IN, 0));
+        ch = String.valueOf(prefs.getInt(Constants.CH, 0));
+        ff = String.valueOf(prefs.getInt(Constants.FF, 0));
+        ge = String.valueOf(prefs.getInt(Constants.GE, 0));
+        ko = String.valueOf(prefs.getInt(Constants.KO, 0));
+        kk = String.valueOf(prefs.getInt(Constants.KK, 0));
 
+        numMU.setText(mu);
+        numKL.setText(kl);
+        numIN.setText(in);
+        numCH.setText(ch);
+        numFF.setText(ff);
+        numGE.setText(ge);
+        numKO.setText(ko);
+        numKK.setText(kk);
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (numMU.getText().toString().equals(mu) && numKL.getText().toString().equals(kl) && numIN.getText().toString().equals(in) && numCH.getText().toString().equals(ch) && numFF.getText().toString().equals(ff) && numGE.getText().toString().equals(ge) && numKO.getText().toString().equals(ko) && numKK.getText().toString().equals(kk)) {
+            super.onBackPressed();
+        } else {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle("Ungespeicherte Änderungen verwerfen?");
+            builder.setPositiveButton("Speichern", (dialogInterface, i) -> {
+                saveStats();
+                dialogInterface.dismiss();
+                StatsActivity.super.onBackPressed();
+            });
+            builder.setNegativeButton("Abbrechen", (dialogInterface, i) -> dialogInterface.dismiss());
+            builder.show();
+        }
     }
 
     @Override
