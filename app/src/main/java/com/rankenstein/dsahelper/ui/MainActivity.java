@@ -17,6 +17,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.util.Consumer;
 import com.rankenstein.dsahelper.R;
 import com.rankenstein.dsahelper.logic.ChanceLogic;
+import com.rankenstein.dsahelper.logic.Constants;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -59,21 +60,21 @@ public class MainActivity extends AppCompatActivity {
         }));
 
         Button btnMU = findViewById(R.id.btnMU);
-        btnMU.setOnClickListener((View v) -> addStat(btnMU.getText().toString()));
+        btnMU.setOnClickListener((View v) -> addStat(Constants.MU));
         Button btnKL = findViewById(R.id.btnKL);
-        btnKL.setOnClickListener((View v) -> addStat(btnKL.getText().toString()));
+        btnKL.setOnClickListener((View v) -> addStat(Constants.KL));
         Button btnIN = findViewById(R.id.btnIN);
-        btnIN.setOnClickListener((View v) -> addStat(btnIN.getText().toString()));
+        btnIN.setOnClickListener((View v) -> addStat(Constants.IN));
         Button btnCH = findViewById(R.id.btnCH);
-        btnCH.setOnClickListener((View v) -> addStat(btnCH.getText().toString()));
+        btnCH.setOnClickListener((View v) -> addStat(Constants.CH));
         Button btnFF = findViewById(R.id.btnFF);
-        btnFF.setOnClickListener((View v) -> addStat(btnFF.getText().toString()));
+        btnFF.setOnClickListener((View v) -> addStat(Constants.FF));
         Button btnGE = findViewById(R.id.btnGE);
-        btnGE.setOnClickListener((View v) -> addStat(btnGE.getText().toString()));
+        btnGE.setOnClickListener((View v) -> addStat(Constants.GE));
         Button btnKO = findViewById(R.id.btnKO);
-        btnKO.setOnClickListener((View v) -> addStat(btnKO.getText().toString()));
+        btnKO.setOnClickListener((View v) -> addStat(Constants.KO));
         Button btnKK = findViewById(R.id.btnKK);
-        btnKK.setOnClickListener((View v) -> addStat(btnKK.getText().toString()));
+        btnKK.setOnClickListener((View v) -> addStat(Constants.KK));
 
         this.findViewById(R.id.btnBack).setOnClickListener((View v) -> removeStat());
         this.findViewById(R.id.btnClear).setOnClickListener((View v) -> {
@@ -90,14 +91,14 @@ public class MainActivity extends AppCompatActivity {
         if (stats.size() <= 3) {
             switch (stats.size()) {
                 case 1:
-                    findViewById(R.id.img_stat_1).setVisibility(View.GONE);
+                    findViewById(R.id.img_stat_1).setVisibility(View.INVISIBLE);
                     break;
                 case 2:
-                    findViewById(R.id.img_stat_2).setVisibility(View.GONE);
+                    findViewById(R.id.img_stat_2).setVisibility(View.INVISIBLE);
 
                     break;
                 case 3:
-                    findViewById(R.id.img_stat_3).setVisibility(View.GONE);
+                    findViewById(R.id.img_stat_3).setVisibility(View.INVISIBLE);
                     break;
             }
 
@@ -107,8 +108,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void addStat(String stat) {
-        stats.add(stat);
-        if (stats.size() <= 3) {
+        if (stats.size() < 3) {
+            stats.add(stat);
             switch (stats.size()) {
                 case 1:
                     ImageView imgStat1 = findViewById(R.id.img_stat_1);
@@ -132,7 +133,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void calculateChance() {
-        SharedPreferences prefs = getSharedPreferences(getString(R.string.stats_file_key), MODE_PRIVATE);
+        SharedPreferences prefs = getSharedPreferences(Constants.PREFERENCE_FILE_STATS, MODE_PRIVATE);
         int e1 = prefs.getInt(stats.get(0), 0);
         int e2 = prefs.getInt(stats.get(1), 0);
         int e3 = prefs.getInt(stats.get(2), 0);

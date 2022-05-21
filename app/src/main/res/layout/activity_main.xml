@@ -7,6 +7,70 @@
         android:layout_height="match_parent"
         tools:context=".ui.MainActivity">
 
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:layout_editor_absoluteX="1dp"
+            android:id="@+id/layout_check_showcase"
+            android:layout_marginTop="64dp"
+            app:layout_constraintTop_toTopOf="parent">
+
+        <Space
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1">
+        </Space>
+
+        <ImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:src="@drawable/w20ch"
+                android:scaleType="fitCenter"
+                android:background="#0000"
+                android:adjustViewBounds="true"
+                android:visibility="invisible"
+                android:id="@+id/img_stat_1"/>
+
+        <Space
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1">
+        </Space>
+
+        <ImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:src="@drawable/w20ch"
+                android:scaleType="fitCenter"
+                android:background="#0000"
+                android:adjustViewBounds="true"
+                android:visibility="invisible"
+                android:id="@+id/img_stat_2"/>
+
+        <Space
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1"
+                >
+        </Space>
+
+        <ImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:src="@drawable/w20ch"
+                android:scaleType="fitCenter"
+                android:background="#0000"
+                android:adjustViewBounds="true"
+                android:visibility="invisible"
+                android:id="@+id/img_stat_3"/>
+
+        <Space
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1">
+        </Space>
+    </LinearLayout>
 
     <LinearLayout
             android:orientation="vertical"
@@ -132,7 +196,7 @@
                     style="?android:attr/buttonBarButtonStyle"/>
 
             <Button
-                    android:text="Modifkator: 0"
+                    android:text="Modifikator: 0"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/btn_mod"
@@ -142,70 +206,7 @@
 
     </LinearLayout>
 
-    <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:layout_editor_absoluteX="1dp"
-            android:id="@+id/layout_check_showcase"
-            android:layout_marginTop="64dp"
-            app:layout_constraintTop_toTopOf="parent">
 
-        <Space
-                android:layout_width="0dp"
-                android:layout_height="1dp"
-                android:layout_weight="1">
-        </Space>
-
-        <ImageView
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:src="@drawable/w20ch"
-                android:scaleType="fitCenter"
-                android:background="#0000"
-                android:adjustViewBounds="true"
-                android:visibility="gone"
-                android:id="@+id/img_stat_1"/>
-
-        <Space
-                android:layout_width="0dp"
-                android:layout_height="1dp"
-                android:layout_weight="1">
-        </Space>
-
-        <ImageView
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:src="@drawable/w20ch"
-                android:scaleType="fitCenter"
-                android:background="#0000"
-                android:adjustViewBounds="true"
-                android:visibility="gone"
-                android:id="@+id/img_stat_2"/>
-
-        <Space
-                android:layout_width="0dp"
-                android:layout_height="1dp"
-                android:layout_weight="1"
-                >
-        </Space>
-
-        <ImageView
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:src="@drawable/w20ch"
-                android:scaleType="fitCenter"
-                android:background="#0000"
-                android:adjustViewBounds="true"
-                android:visibility="gone"
-                android:id="@+id/img_stat_3"/>
-
-        <Space
-                android:layout_width="0dp"
-                android:layout_height="1dp"
-                android:layout_weight="1">
-        </Space>
-    </LinearLayout>
 
     <TextView
             android:layout_width="wrap_content"

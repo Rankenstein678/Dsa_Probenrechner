@@ -6,7 +6,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import androidx.appcompat.app.AppCompatActivity;
+import com.google.android.material.snackbar.Snackbar;
 import com.rankenstein.dsahelper.R;
+import com.rankenstein.dsahelper.logic.Constants;
 
 import java.util.Objects;
 
@@ -28,7 +30,10 @@ public class StatsActivity extends AppCompatActivity {
 
     private void initViews() {
         Button saveBtn = findViewById(R.id.btnSave);
-        saveBtn.setOnClickListener((View v) -> saveStats());
+        saveBtn.setOnClickListener((View v) -> {
+            saveStats();
+            Snackbar.make(saveBtn,"Änderungen gespeichert!",Snackbar.LENGTH_SHORT).show();
+        });
         numMU = findViewById(R.id.numMU);
         numKL = findViewById(R.id.numKL);
         numIN = findViewById(R.id.numIN);
@@ -42,31 +47,31 @@ public class StatsActivity extends AppCompatActivity {
 
     private void saveStats() {
         SharedPreferences prefs = getSharedPreferences(
-                getString(R.string.stats_file_key), MODE_PRIVATE);
+                Constants.PREFERENCE_FILE_STATS, MODE_PRIVATE);
         SharedPreferences.Editor editor = prefs.edit();
         //TODO: Konstanten Klasse
-        editor.putInt("MU", Integer.parseInt(numMU.getText().toString()));
-        editor.putInt("KL", Integer.parseInt(numKL.getText().toString()));
-        editor.putInt("IN", Integer.parseInt(numIN.getText().toString()));
-        editor.putInt("CH", Integer.parseInt(numCH.getText().toString()));
-        editor.putInt("FF", Integer.parseInt(numFF.getText().toString()));
-        editor.putInt("GE", Integer.parseInt(numGE.getText().toString()));
-        editor.putInt("KO", Integer.parseInt(numKO.getText().toString()));
-        editor.putInt("KK", Integer.parseInt(numKK.getText().toString()));
+        editor.putInt(Constants.MU, Integer.parseInt(numMU.getText().toString()));
+        editor.putInt(Constants.KL, Integer.parseInt(numKL.getText().toString()));
+        editor.putInt(Constants.IN, Integer.parseInt(numIN.getText().toString()));
+        editor.putInt(Constants.CH, Integer.parseInt(numCH.getText().toString()));
+        editor.putInt(Constants.FF, Integer.parseInt(numFF.getText().toString()));
+        editor.putInt(Constants.GE, Integer.parseInt(numGE.getText().toString()));
+        editor.putInt(Constants.KO, Integer.parseInt(numKO.getText().toString()));
+        editor.putInt(Constants.KK, Integer.parseInt(numKK.getText().toString()));
         editor.apply();
     }
 
     private void loadStats() {
         SharedPreferences prefs = getSharedPreferences(
-                getString(R.string.stats_file_key), MODE_PRIVATE);
-        numMU.setText(String.valueOf(prefs.getInt("MU", 0)));
-        numKL.setText(String.valueOf(prefs.getInt("KL", 0)));
-        numIN.setText(String.valueOf(prefs.getInt("IN", 0)));
-        numCH.setText(String.valueOf(prefs.getInt("CH", 0)));
-        numFF.setText(String.valueOf(prefs.getInt("FF", 0)));
-        numGE.setText(String.valueOf(prefs.getInt("GE", 0)));
-        numKO.setText(String.valueOf(prefs.getInt("KO", 0)));
-        numKK.setText(String.valueOf(prefs.getInt("KK", 0)));
+                Constants.PREFERENCE_FILE_STATS, MODE_PRIVATE);
+        numMU.setText(String.valueOf(prefs.getInt(Constants.MU, 0)));
+        numKL.setText(String.valueOf(prefs.getInt(Constants.MU, 0)));
+        numIN.setText(String.valueOf(prefs.getInt(Constants.MU, 0)));
+        numCH.setText(String.valueOf(prefs.getInt(Constants.MU, 0)));
+        numFF.setText(String.valueOf(prefs.getInt(Constants.MU, 0)));
+        numGE.setText(String.valueOf(prefs.getInt(Constants.MU, 0)));
+        numKO.setText(String.valueOf(prefs.getInt(Constants.MU, 0)));
+        numKK.setText(String.valueOf(prefs.getInt(Constants.MU, 0)));
 
     }
 
