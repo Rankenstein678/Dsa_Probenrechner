@@ -82,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
             if (stats.size() == 3) calculateChance();
         }));
 
-        //Lädt die Zurücktasten
+        //Lädt die Zurück-Tasten
         this.findViewById(R.id.btnBack).setOnClickListener((View v) -> removeStat());
         this.findViewById(R.id.btnClear).setOnClickListener((View v) -> {
             //Entfernt alle Eigenschaften der Liste und setzt TaW und Mod zurück.
