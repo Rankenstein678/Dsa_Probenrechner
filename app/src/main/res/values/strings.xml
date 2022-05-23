@@ -1,6 +1,20 @@
 <resources>
     <string name="app_name">DSA Probenrechner</string>
+    <string name="main_activity_title">Probenrechner</string>
+    <string name="stats_activity_title">Eigenschaften</string>
+
     <string name="talentwert">Talentwert: %1$d</string>
     <string name="modifikator">Modifikator: %1$d</string>
+    <string name="ok">Okay</string>
+    <string name="cancel">Abbrechen</string>
+    <string name="chance">Chance: %1$s</string>
+    <string name="avrg_tap">durchschnittlicher TaP*: %1$s</string>
+    <string name="saved_changes">Änderungen gespeichert!</string>
+    <string name="discard_changes">Ungespeicherte Änderungen verwerfen?</string>
+    <string name="save">Speichern</string>
+    <string name="discard">Verwerfen</string>
+
+    <string name="dialog_taw_title">TaW/ZfW eingeben</string>
+    <string name="dialog_mod_title">Modifikator eingeben</string>
 
 </resources>

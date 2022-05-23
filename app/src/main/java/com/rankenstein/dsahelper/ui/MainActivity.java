@@ -3,10 +3,8 @@ package com.rankenstein.dsahelper.ui;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
+import android.util.Log;
+import android.view.*;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -23,11 +21,13 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Objects;
 
+//Das Hauptfenster der App
 public class MainActivity extends AppCompatActivity {
     private int mod, taw;
 
     private ArrayList<String> stats;
 
+    //Initialisiert alle Felder und lädt das Layout.
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,28 +36,19 @@ public class MainActivity extends AppCompatActivity {
         taw = 0;
         mod = 0;
         initViews();
+
+        //Versucht den Titel der App Bar zu ändern.
         try {
-            Objects.requireNonNull(getSupportActionBar()).setTitle("Probenrechner");
+            Objects.requireNonNull(getSupportActionBar()).setTitle(R.string.main_activity_title);
         } catch (NullPointerException e) {
-            System.out.println("Couldn't get Action Bar");
+            Log.d("DSA-Probenrechner","Couldn't get Action Bar");
         }
 
     }
 
+    //Lädt die Elemente der Aktivität und legt ihr Verhalten fest.
     private void initViews() {
-        Button btnTaw = findViewById(R.id.btn_taw);
-        btnTaw.setOnClickListener((View v) -> createDialog("TaW/ZfW eingeben", (Integer value) -> {
-            this.taw = value;
-            btnTaw.setText(getString(R.string.talentwert, taw));
-            if (stats.size() == 3) calculateChance();
-        }));
-        Button btnMod = findViewById(R.id.btn_mod);
-        btnMod.setOnClickListener((View v) -> createDialog("Modifikator eingeben", (Integer value) -> {
-            this.mod = value;
-            btnMod.setText(getString(R.string.modifikator, mod));
-            if (stats.size() == 3) calculateChance();
-        }));
-
+        //Lädt die Eigenschaftstasten.
         Button btnMU = findViewById(R.id.btnMU);
         btnMU.setOnClickListener((View v) -> addStat(Constants.MU));
         Button btnKL = findViewById(R.id.btnKL);
@@ -75,8 +66,26 @@ public class MainActivity extends AppCompatActivity {
         Button btnKK = findViewById(R.id.btnKK);
         btnKK.setOnClickListener((View v) -> addStat(Constants.KK));
 
+        //Lädt die Talentwert/Modifikator Tasten.
+        Button btnTaw = findViewById(R.id.btn_taw);
+        btnTaw.setOnClickListener((View v) -> createDialog(getString(R.string.dialog_taw_title), (Integer value) -> {
+            //Ersetzt den Talentwert mit dem neuen Wert.
+            this.taw = value;
+            btnTaw.setText(getString(R.string.talentwert, taw));
+            if (stats.size() == 3) calculateChance();
+        }));
+        Button btnMod = findViewById(R.id.btn_mod);
+        btnMod.setOnClickListener((View v) -> createDialog(getString(R.string.dialog_mod_title), (Integer value) -> {
+            //Ersetzt den Modifikator mit dem neuen Wert.
+            this.mod = value;
+            btnMod.setText(getString(R.string.modifikator, mod));
+            if (stats.size() == 3) calculateChance();
+        }));
+
+        //Lädt die Zurücktasten
         this.findViewById(R.id.btnBack).setOnClickListener((View v) -> removeStat());
         this.findViewById(R.id.btnClear).setOnClickListener((View v) -> {
+            //Entfernt alle Eigenschaften der Liste und setzt TaW und Mod zurück.
             while (!stats.isEmpty()) removeStat();
             taw = 0;
             ((Button) findViewById(R.id.btn_taw)).setText(getString(R.string.talentwert, taw));
@@ -85,6 +94,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    //Entfernt eine Eigenschaft und das dazugehörige Bild. Setzt auch das Ergebnis zurück.
     private void removeStat() {
         if (stats.isEmpty()) return;
         if (stats.size() <= 3) {
@@ -102,26 +112,31 @@ public class MainActivity extends AppCompatActivity {
             }
 
         }
-        ((TextView) findViewById(R.id.txtResult)).setText("Chance:\ndurchschnittliche TaP*:");
+        String result = getString(R.string.chance, "") + "\n" + getString(R.string.avrg_tap, "");
+        ((TextView) findViewById(R.id.txtResult)).setText(result);
         stats.remove(stats.size() - 1);
     }
 
+    //Fügt eine Eigenschaft und das dazugehörige Bild hinzu.
     private void addStat(String stat) {
         if (stats.size() < 3) {
             stats.add(stat);
             switch (stats.size()) {
                 case 1:
                     ImageView imgStat1 = findViewById(R.id.img_stat_1);
+                    //Ändert das Bild des ImageViews. Die ID der Bildressource wird aus "w20" und der Eigenschaft zusammengesetzt.
                     imgStat1.setImageResource(getResources().getIdentifier(("w20" + stat.toLowerCase()), "drawable", MainActivity.this.getPackageName()));
                     imgStat1.setVisibility(View.VISIBLE);
                     break;
                 case 2:
                     ImageView imgStat2 = findViewById(R.id.img_stat_2);
+                    //Ändert das Bild des ImageViews. Die ID der Bildressource wird aus "w20" und der Eigenschaft zusammengesetzt.
                     imgStat2.setImageResource(getResources().getIdentifier(("w20" + stat.toLowerCase()), "drawable", MainActivity.this.getPackageName()));
                     imgStat2.setVisibility(View.VISIBLE);
                     break;
                 case 3:
                     ImageView imgStat3 = findViewById(R.id.img_stat_3);
+                    //Ändert das Bild des ImageViews. Die ID der Bildressource wird aus "w20" und der Eigenschaft zusammengesetzt.
                     imgStat3.setImageResource(getResources().getIdentifier(("w20" + stat.toLowerCase()), "drawable", MainActivity.this.getPackageName()));
                     imgStat3.setVisibility(View.VISIBLE);
                     calculateChance();
@@ -131,43 +146,61 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    //Errechnet die Chance und updated das UI
     private void calculateChance() {
+        //Lädt die Eigenschaftswerte aus dem lokalen Speicher (Shared Preferences).
         SharedPreferences prefs = getSharedPreferences(Constants.PREFERENCE_FILE_STATS, MODE_PRIVATE);
         int e1 = prefs.getInt(stats.get(0), 0);
         int e2 = prefs.getInt(stats.get(1), 0);
         int e3 = prefs.getInt(stats.get(2), 0);
+        //Lädt das Ergebnis
         double[] results = ChanceLogic.calculateChance(e1, e2, e3, taw, mod);
 
+        //Formatiert die Ergebnisse in einen String und lädt ihn in das Ergebnisfeld.
         DecimalFormat df = new DecimalFormat("00.##");
         String chance = df.format(results[0] * 100) + "%\n";
-        int avrgTap = (int) Math.round(results[1]);
-        String result = "Chance: " + chance + "durchschnittliche TaP*: " + avrgTap;
+        String avrgTap = String.valueOf((int) Math.round(results[1]));
+        String result = getString(R.string.chance, chance) + getString(R.string.avrg_tap, avrgTap);
         ((TextView) findViewById(R.id.txtResult)).setText(result);
     }
 
-    private void createDialog(String title, Consumer<Integer> field) { //Consumer um Feld aus Lambda zu aktualisieren
+    //Erstellt einen Eingabedialog. Der Consumer wird genutzt, um ein beliebiges Feld aus der Methode zu aktualisieren.
+    private void createDialog(String title, Consumer<Integer> field) {
+        //Erstellt den Dialog-Builder.
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(title);
         builder.setCancelable(true);
 
+        //Lädt das Layout in den Dialog.
         View inflatedView = LayoutInflater.from(this).inflate(R.layout.text_input_number, findViewById(R.id.content), false);
         final EditText txtInput = inflatedView.findViewById(R.id.input);
         builder.setView(inflatedView);
 
-        builder.setPositiveButton("OK", (dialog, which) -> {
+        //Erstellt die beiden Knöpfe.
+        builder.setPositiveButton(R.string.ok, (dialog, which) -> {
             dialog.dismiss();
-            int value = txtInput.getText().toString().isEmpty() ? 0: Integer.parseInt(txtInput.getText().toString());
+            int value = txtInput.getText().toString().isEmpty() ? 0 : Integer.parseInt(txtInput.getText().toString());
             field.accept(value);
         });
-        builder.setNegativeButton("Abbrechen", (dialog, which) -> dialog.cancel());
-        builder.show();
+        builder.setNegativeButton(R.string.cancel, (dialog, which) -> dialog.cancel());
+
+        //Öffnet die Tastatur
+        AlertDialog dialog = builder.create();
+        txtInput.requestFocus();
+        dialog.getWindow().setSoftInputMode(
+                WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+
+        //Erstellt den Dialog.
+        dialog.show();
     }
 
 
+    //Handelt die Knöpfe in der App Bar.
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
         if (item.getItemId() == R.id.action_stats) {
+            //Lädt das neue Fenster (Aktivität)
             Intent intent = new Intent(MainActivity.this, StatsActivity.class);
             startActivity(intent);
             return true;
@@ -178,6 +211,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    //Lädt das Optionsmenü in der App Bar.
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.app_bar_main, menu);
