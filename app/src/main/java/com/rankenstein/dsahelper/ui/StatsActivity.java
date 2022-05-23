@@ -92,7 +92,7 @@ public class StatsActivity extends AppCompatActivity {
         numKK.setText(kk);
     }
 
-    //Warnt beu ungespeicherten Änderungen.
+    //Warnt bei ungespeicherten Änderungen.
     @Override
     public void onBackPressed() {
         //Gleicht aktuelle Werte mit den gespeicherten ab
