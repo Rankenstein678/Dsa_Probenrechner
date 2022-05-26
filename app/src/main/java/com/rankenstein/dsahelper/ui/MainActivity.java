@@ -157,7 +157,7 @@ public class MainActivity extends AppCompatActivity {
         double[] results = ChanceLogic.calculateChance(e1, e2, e3, taw, mod);
 
         //Formatiert die Ergebnisse in einen String und lädt ihn in das Ergebnisfeld.
-        DecimalFormat df = new DecimalFormat("00.##");
+        DecimalFormat df = new DecimalFormat("##.##");
         String chance = df.format(results[0] * 100) + "%\n";
         String avrgTap = String.valueOf((int) Math.round(results[1]));
         String result = getString(R.string.chance, chance) + getString(R.string.avrg_tap, avrgTap);
