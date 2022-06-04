@@ -103,7 +103,8 @@
                         android:layout_height="wrap_content"
                         android:id="@+id/btnClear"
                         android:layout_weight="1"
-                        style="?android:attr/buttonBarButtonStyle"/>
+                        style="?android:attr/buttonBarButtonStyle"
+                        tools:ignore="TextContrastCheck"/>
 
                 <Button
                         android:text="@string/c"
@@ -112,7 +113,8 @@
                         android:layout_height="wrap_content"
                         android:id="@+id/btnBack"
                         android:layout_weight="1"
-                        style="?android:attr/buttonBarButtonStyle"/>
+                        style="?android:attr/buttonBarButtonStyle"
+                        tools:ignore="TextContrastCheck"/>
             </LinearLayout>
 
             <LinearLayout
