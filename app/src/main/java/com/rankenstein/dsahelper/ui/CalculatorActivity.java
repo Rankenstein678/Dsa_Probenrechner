@@ -22,19 +22,22 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 //Das Hauptfenster der App
-public class MainActivity extends AppCompatActivity {
+public class CalculatorActivity extends AppCompatActivity {
     private int mod, taw;
 
     private ArrayList<String> stats;
+
+    boolean canCalculate;
 
     //Initialisiert alle Felder und lädt das Layout.
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_calculator);
         stats = new ArrayList<>();
         taw = 0;
         mod = 0;
+        canCalculate = false; //Nötig, um nach einem Eigenschaftsupdate die Chance neu zu berechnen (siehe onRestart)
         initViews();
 
         //Versucht den Titel der App Bar zu ändern.
@@ -97,6 +100,7 @@ public class MainActivity extends AppCompatActivity {
     //Entfernt eine Eigenschaft und das dazugehörige Bild. Setzt auch das Ergebnis zurück.
     private void removeStat() {
         if (stats.isEmpty()) return;
+        canCalculate = false;
         if (stats.size() <= 3) {
             switch (stats.size()) {
                 case 1:
@@ -125,20 +129,21 @@ public class MainActivity extends AppCompatActivity {
                 case 1:
                     ImageView imgStat1 = findViewById(R.id.img_stat_1);
                     //Ändert das Bild des ImageViews. Die ID der Bildressource wird aus "w20" und der Eigenschaft zusammengesetzt.
-                    imgStat1.setImageResource(getResources().getIdentifier(("w20" + stat.toLowerCase()), "drawable", MainActivity.this.getPackageName()));
+                    imgStat1.setImageResource(getResources().getIdentifier(("w20" + stat.toLowerCase()), "drawable", CalculatorActivity.this.getPackageName()));
                     imgStat1.setVisibility(View.VISIBLE);
                     break;
                 case 2:
                     ImageView imgStat2 = findViewById(R.id.img_stat_2);
                     //Ändert das Bild des ImageViews. Die ID der Bildressource wird aus "w20" und der Eigenschaft zusammengesetzt.
-                    imgStat2.setImageResource(getResources().getIdentifier(("w20" + stat.toLowerCase()), "drawable", MainActivity.this.getPackageName()));
+                    imgStat2.setImageResource(getResources().getIdentifier(("w20" + stat.toLowerCase()), "drawable", CalculatorActivity.this.getPackageName()));
                     imgStat2.setVisibility(View.VISIBLE);
                     break;
                 case 3:
                     ImageView imgStat3 = findViewById(R.id.img_stat_3);
                     //Ändert das Bild des ImageViews. Die ID der Bildressource wird aus "w20" und der Eigenschaft zusammengesetzt.
-                    imgStat3.setImageResource(getResources().getIdentifier(("w20" + stat.toLowerCase()), "drawable", MainActivity.this.getPackageName()));
+                    imgStat3.setImageResource(getResources().getIdentifier(("w20" + stat.toLowerCase()), "drawable", CalculatorActivity.this.getPackageName()));
                     imgStat3.setVisibility(View.VISIBLE);
+                    canCalculate = true;
                     calculateChance();
                     break;
             }
@@ -194,6 +199,14 @@ public class MainActivity extends AppCompatActivity {
         dialog.show();
     }
 
+    //Errechnet die neuen Chancen nach Neustart, um potenzielle Änderungen der Eigenschaften widerzuspiegeln
+    @Override
+    protected void onRestart() {
+        if (canCalculate) {
+            calculateChance();
+        }
+        super.onRestart();
+    }
 
     //Handelt die Knöpfe in der App Bar.
     @Override
@@ -201,7 +214,7 @@ public class MainActivity extends AppCompatActivity {
 
         if (item.getItemId() == R.id.action_stats) {
             //Lädt das neue Fenster (Aktivität)
-            Intent intent = new Intent(MainActivity.this, StatsActivity.class);
+            Intent intent = new Intent(CalculatorActivity.this, StatsActivity.class);
             startActivity(intent);
             return true;
         } else {
