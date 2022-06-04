@@ -16,5 +16,20 @@
 
     <string name="dialog_taw_title">TaW/ZfW eingeben</string>
     <string name="dialog_mod_title">Modifikator eingeben</string>
+    <string name="clear">CLEAR</string>
+    <string name="c">C</string>
+    <string name="mu">MU</string>
+    <string name="kl">KL</string>
+    <string name="in">IN</string>
+    <string name="ch">CH</string>
+    <string name="ff">FF</string>
+    <string name="ge">GE</string>
+    <string name="ko">KO</string>
+    <string name="kk">KK</string>
+    <string name="results_empty">Chance:\ndurchschnittliche TaP*:</string>
+    <string name="talentwert_0">Talentwert: 0</string>
+    <string name="modifikator_0">Modifikator: 0</string>
+    <string name="content_desc_d20">Bild einer Eigenschaft</string>
+    <string name="zero">0</string>
 
 </resources>

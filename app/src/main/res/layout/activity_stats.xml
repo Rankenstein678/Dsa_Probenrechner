@@ -11,68 +11,74 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:inputType="number"
-            android:text="0"
+            android:text="@string/zero"
             android:id="@+id/numKK"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/numKO"
-            app:layout_constraintEnd_toEndOf="@+id/numKO"/>
+            app:layout_constraintEnd_toEndOf="@+id/numKO"
+            tools:ignore="TouchTargetSizeCheck,TouchTargetSizeCheck,DuplicateSpeakableTextCheck"/>
 
     <com.google.android.material.textfield.TextInputEditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:inputType="number"
-            android:text="0"
+            android:text="@string/zero"
             android:id="@+id/numKO"
             app:layout_constraintTop_toBottomOf="@+id/numGE"
             app:layout_constraintBottom_toTopOf="@+id/numKK"
-            app:layout_constraintEnd_toEndOf="@+id/numGE"/>
+            app:layout_constraintEnd_toEndOf="@+id/numGE"
+            tools:ignore="TouchTargetSizeCheck"/>
 
     <com.google.android.material.textfield.TextInputEditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:inputType="number"
-            android:text="0"
+            android:text="@string/zero"
             android:id="@+id/numFF"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toTopOf="@+id/numGE"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginEnd="32dp"/>
+            android:layout_marginEnd="32dp"
+            tools:ignore="TouchTargetSizeCheck"/>
 
     <com.google.android.material.textfield.TextInputEditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:inputType="number"
-            android:text="0"
+            android:text="@string/zero"
             android:id="@+id/numCH"
             app:layout_constraintBottom_toBottomOf="@+id/textView4"
             app:layout_constraintTop_toTopOf="@+id/textView4"
             app:layout_constraintStart_toEndOf="@+id/textView4"
-            android:layout_marginStart="24dp"/>
+            android:layout_marginStart="24dp"
+            tools:ignore="TouchTargetSizeCheck"/>
 
     <com.google.android.material.textfield.TextInputEditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:inputType="number"
-            android:text="0"
+            android:text="@string/zero"
             android:id="@+id/numIN"
             app:layout_constraintBottom_toBottomOf="@+id/textView10"
             app:layout_constraintTop_toTopOf="@+id/textView10"
             app:layout_constraintStart_toEndOf="@+id/textView10"
-            android:layout_marginStart="24dp"/>
+            android:layout_marginStart="24dp"
+            tools:ignore="TouchTargetSizeCheck"/>
 
     <com.google.android.material.textfield.TextInputEditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:inputType="number"
-            android:text="0"
+            android:text="@string/zero"
             android:id="@+id/numKL"
             app:layout_constraintBottom_toBottomOf="@+id/textView3"
             app:layout_constraintTop_toTopOf="@+id/textView3"
             app:layout_constraintStart_toEndOf="@+id/textView3"
-            android:layout_marginStart="24dp"/>
+            android:layout_marginStart="24dp"
+            tools:ignore="TouchTargetSizeCheck"/>
 
     <TextView
-            android:text="MU"
+            android:text="@string/mu"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/textView2"
@@ -84,7 +90,7 @@
             android:textSize="18sp"/>
 
     <TextView
-            android:text="KL"
+            android:text="@string/kl"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/textView3"
@@ -95,7 +101,7 @@
             android:textSize="18sp"/>
 
     <TextView
-            android:text="CH"
+            android:text="@string/ch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/textView4"
@@ -106,7 +112,7 @@
             android:textSize="18sp"/>
 
     <TextView
-            android:text="FF"
+            android:text="@string/ff"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:typeface="monospace"
@@ -117,7 +123,7 @@
             android:layout_marginEnd="24dp"/>
 
     <TextView
-            android:text="GE"
+            android:text="@string/ge"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:typeface="monospace"
@@ -131,14 +137,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:inputType="number"
-            android:text="0"
+            android:text="@string/zero"
             android:id="@+id/numGE"
             app:layout_constraintTop_toBottomOf="@+id/numFF"
             app:layout_constraintBottom_toTopOf="@+id/numKO"
-            app:layout_constraintEnd_toEndOf="@+id/numFF"/>
+            app:layout_constraintEnd_toEndOf="@+id/numFF"
+            tools:ignore="TouchTargetSizeCheck"/>
 
     <TextView
-            android:text="KO"
+            android:text="@string/ko"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:typeface="monospace"
@@ -149,7 +156,7 @@
             android:layout_marginEnd="24dp"/>
 
     <TextView
-            android:text="IN"
+            android:text="@string/in"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/textView10"
@@ -160,7 +167,7 @@
             android:textSize="18sp"/>
 
     <TextView
-            android:text="KK"
+            android:text="@string/kk"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:typeface="monospace"
@@ -178,11 +185,12 @@
             app:layout_constraintTop_toTopOf="@+id/textView2"
             android:layout_marginStart="24dp"
             android:inputType="number"
-            android:text="0"
-            android:id="@+id/numMU"/>
+            android:text="@string/zero"
+            android:id="@+id/numMU"
+            tools:ignore="TouchTargetSizeCheck"/>
 
     <Button
-            android:text="Speichern"
+            android:text="@string/save"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/btnSave"
