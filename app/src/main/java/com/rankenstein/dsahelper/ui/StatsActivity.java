@@ -2,6 +2,8 @@ package com.rankenstein.dsahelper.ui;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -16,21 +18,27 @@ import java.util.Objects;
 
 //Das Fenster um die Eigenschaftswerte zu bearbeiten
 public class StatsActivity extends AppCompatActivity {
-    private String mu, kl, in, ch, ff, ge, ko, kk;
     private EditText numMU, numKL, numIN, numCH, numFF, numGE, numKO, numKK;
+
+    private boolean changesSaved;
+    private SharedPreferences sharedPrefs;
 
     //Initialisiert alle Felder und lädt das Layout.
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_stats);
+
+        //Lädt zwischen App-Starts erhaltene Informationen aus dem lokalen Speicher
+        sharedPrefs = getSharedPreferences(Constants.PREFERENCE_FILE_STATS, MODE_PRIVATE);
+
         initViews();
 
         //Versucht den Titel der App Bar zu ändern.
         try {
             Objects.requireNonNull(getSupportActionBar()).setTitle(getString(R.string.stats_activity_title));
         } catch (NullPointerException e) {
-            Log.d("DSA-Probenrechner","Couldn't get Action Bar");
+            Log.d("DSA-Probenrechner", "Couldn't get Action Bar");
         }
     }
 
@@ -43,6 +51,7 @@ public class StatsActivity extends AppCompatActivity {
             saveStats();
             Snackbar.make(saveBtn, getText(R.string.saved_changes), Snackbar.LENGTH_SHORT).show();
         });
+
         //Initialisiert die Felder des Objekts mit den Textfeldern.
         numMU = findViewById(R.id.numMU);
         numKL = findViewById(R.id.numKL);
@@ -53,12 +62,31 @@ public class StatsActivity extends AppCompatActivity {
         numKO = findViewById(R.id.numKO);
         numKK = findViewById(R.id.numKK);
 
+        EditText[] ets = new EditText[]{numMU, numKL, numIN, numCH, numFF, numGE, numKO, numKK};
+        for (EditText et : ets) {
+            //Nötig da Variablen in inneren Klassen effektiv final sein müssen
+            et.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void afterTextChanged(Editable editable) {
+                    changesSaved = false;
+                }
+
+                @Override
+                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                }
+
+                @Override
+                public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                }
+            });
+        }
     }
 
     //Speichert die Eigenschaften im Lokalen Speicher (Shared Preferences).
     private void saveStats() {
-        SharedPreferences prefs = getSharedPreferences(Constants.PREFERENCE_FILE_STATS, MODE_PRIVATE);
-        SharedPreferences.Editor editor = prefs.edit();
+        changesSaved = true;
+
+        SharedPreferences.Editor editor = sharedPrefs.edit();
         editor.putInt(Constants.MU, Integer.parseInt(numMU.getText().toString()));
         editor.putInt(Constants.KL, Integer.parseInt(numKL.getText().toString()));
         editor.putInt(Constants.IN, Integer.parseInt(numIN.getText().toString()));
@@ -72,38 +100,30 @@ public class StatsActivity extends AppCompatActivity {
 
     //Lädt die gespeicherten Eigenschaften und setzt sie in die Textfelder ein.
     private void loadStats() {
-        SharedPreferences prefs = getSharedPreferences(Constants.PREFERENCE_FILE_STATS, MODE_PRIVATE);
-        mu = String.valueOf(prefs.getInt(Constants.MU, 0));
-        kl = String.valueOf(prefs.getInt(Constants.KL, 0));
-        in = String.valueOf(prefs.getInt(Constants.IN, 0));
-        ch = String.valueOf(prefs.getInt(Constants.CH, 0));
-        ff = String.valueOf(prefs.getInt(Constants.FF, 0));
-        ge = String.valueOf(prefs.getInt(Constants.GE, 0));
-        ko = String.valueOf(prefs.getInt(Constants.KO, 0));
-        kk = String.valueOf(prefs.getInt(Constants.KK, 0));
+        String inMU = String.valueOf(sharedPrefs.getInt(Constants.MU, 0));
+        String inKL = String.valueOf(sharedPrefs.getInt(Constants.KL, 0));
+        String inIN = String.valueOf(sharedPrefs.getInt(Constants.IN, 0));
+        String inCH = String.valueOf(sharedPrefs.getInt(Constants.CH, 0));
+        String inFF = String.valueOf(sharedPrefs.getInt(Constants.FF, 0));
+        String inGE = String.valueOf(sharedPrefs.getInt(Constants.GE, 0));
+        String inKO = String.valueOf(sharedPrefs.getInt(Constants.KO, 0));
+        String inKK = String.valueOf(sharedPrefs.getInt(Constants.KK, 0));
 
-        numMU.setText(mu);
-        numKL.setText(kl);
-        numIN.setText(in);
-        numCH.setText(ch);
-        numFF.setText(ff);
-        numGE.setText(ge);
-        numKO.setText(ko);
-        numKK.setText(kk);
+        numMU.setText(inMU);
+        numKL.setText(inKL);
+        numIN.setText(inIN);
+        numCH.setText(inCH);
+        numFF.setText(inFF);
+        numGE.setText(inGE);
+        numKO.setText(inKO);
+        numKK.setText(inKK);
     }
 
     //Warnt bei ungespeicherten Änderungen.
     @Override
     public void onBackPressed() {
         //Gleicht aktuelle Werte mit den gespeicherten ab
-        if (numMU.getText().toString().equals(mu) &&
-                numKL.getText().toString().equals(kl) &&
-                numIN.getText().toString().equals(in) &&
-                numCH.getText().toString().equals(ch) &&
-                numFF.getText().toString().equals(ff) &&
-                numGE.getText().toString().equals(ge) &&
-                numKO.getText().toString().equals(ko) &&
-                numKK.getText().toString().equals(kk)) {
+        if (changesSaved) {
             super.onBackPressed();
         } else {
             //Erstellt das Dialogfenster.
@@ -127,10 +147,11 @@ public class StatsActivity extends AppCompatActivity {
         }
     }
 
-    //Lädt beim Start die Eigenschaften.
+    //Lädt die Eigenschaften beim Start.
     @Override
     protected void onStart() {
         loadStats();
+        changesSaved = true;
         super.onStart();
     }
 }

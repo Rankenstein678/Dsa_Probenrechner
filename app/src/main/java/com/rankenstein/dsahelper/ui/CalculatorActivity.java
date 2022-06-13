@@ -27,7 +27,7 @@ public class CalculatorActivity extends AppCompatActivity {
 
     private ArrayList<String> stats;
 
-    boolean canCalculate;
+    private boolean canCalculate;
 
     //Initialisiert alle Felder und lädt das Layout.
     @Override
@@ -170,7 +170,7 @@ public class CalculatorActivity extends AppCompatActivity {
     }
 
     //Erstellt einen Eingabedialog. Der Consumer wird genutzt, um ein beliebiges Feld aus der Methode zu aktualisieren.
-    private void createDialog(String title, Consumer<Integer> field) {
+    private void createDialog(String title, Consumer<Integer> updateField) {
         //Erstellt den Dialog-Builder.
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(title);
@@ -185,7 +185,7 @@ public class CalculatorActivity extends AppCompatActivity {
         builder.setPositiveButton(R.string.ok, (dialog, which) -> {
             dialog.dismiss();
             int value = txtInput.getText().toString().isEmpty() ? 0 : Integer.parseInt(txtInput.getText().toString());
-            field.accept(value);
+            updateField.accept(value);
         });
         builder.setNegativeButton(R.string.cancel, (dialog, which) -> dialog.cancel());
 
