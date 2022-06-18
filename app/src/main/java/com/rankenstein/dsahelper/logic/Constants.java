@@ -1,7 +1,7 @@
 package com.rankenstein.dsahelper.logic;
 
 public class Constants {
-    //Hauptsächlich dazu da, Schreibfehler zu verhindern.
+    //Hauptsächlich dazu da, Schreibfehler zu vermeiden.
     public static final String MU = "MU";
     public static final String KL = "KL";
     public static final String IN = "IN";
