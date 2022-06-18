@@ -31,7 +31,6 @@ public class StatsActivity extends AppCompatActivity {
 
         //Lädt zwischen App-Starts erhaltene Informationen aus dem lokalen Speicher
         sharedPrefs = getSharedPreferences(Constants.PREFERENCE_FILE_STATS, MODE_PRIVATE);
-
         initViews();
 
         //Versucht den Titel der App Bar zu ändern.
@@ -62,9 +61,9 @@ public class StatsActivity extends AppCompatActivity {
         numKO = findViewById(R.id.numKO);
         numKK = findViewById(R.id.numKK);
 
+        //Fügt den Textfeldern einen TextWatcher hinzu, der auf Änderungen reagiert.
         EditText[] ets = new EditText[]{numMU, numKL, numIN, numCH, numFF, numGE, numKO, numKK};
         for (EditText et : ets) {
-            //Nötig da Variablen in inneren Klassen effektiv final sein müssen
             et.addTextChangedListener(new TextWatcher() {
                 @Override
                 public void afterTextChanged(Editable editable) {

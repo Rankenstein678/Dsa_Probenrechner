@@ -34,6 +34,7 @@ public class CalculatorActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calculator);
+
         stats = new ArrayList<>();
         taw = 0;
         mod = 0;
@@ -73,21 +74,21 @@ public class CalculatorActivity extends AppCompatActivity {
         Button btnTaw = findViewById(R.id.btn_taw);
         btnTaw.setOnClickListener((View v) -> createDialog(getString(R.string.dialog_taw_title), (Integer value) -> {
             //Ersetzt den Talentwert mit dem neuen Wert.
-            this.taw = value;
+            taw = value;
             btnTaw.setText(getString(R.string.talentwert, taw));
             if (stats.size() == 3) calculateChance();
         }));
         Button btnMod = findViewById(R.id.btn_mod);
         btnMod.setOnClickListener((View v) -> createDialog(getString(R.string.dialog_mod_title), (Integer value) -> {
             //Ersetzt den Modifikator mit dem neuen Wert.
-            this.mod = value;
+            mod = value;
             btnMod.setText(getString(R.string.modifikator, mod));
             if (stats.size() == 3) calculateChance();
         }));
 
         //Lädt die Zurück-Tasten
-        this.findViewById(R.id.btnBack).setOnClickListener((View v) -> removeStat());
-        this.findViewById(R.id.btnClear).setOnClickListener((View v) -> {
+        findViewById(R.id.btnBack).setOnClickListener((View v) -> removeStat());
+        findViewById(R.id.btnClear).setOnClickListener((View v) -> {
             //Entfernt alle Eigenschaften der Liste und setzt TaW und Mod zurück.
             while (!stats.isEmpty()) removeStat();
             taw = 0;
@@ -99,8 +100,8 @@ public class CalculatorActivity extends AppCompatActivity {
 
     //Entfernt eine Eigenschaft und das dazugehörige Bild. Setzt auch das Ergebnis zurück.
     private void removeStat() {
-        if (stats.isEmpty()) return;
         canCalculate = false;
+        if (stats.isEmpty()) return;
         if (stats.size() <= 3) {
             switch (stats.size()) {
                 case 1:
@@ -117,7 +118,7 @@ public class CalculatorActivity extends AppCompatActivity {
 
         }
         String result = getString(R.string.chance, "") + "\n" + getString(R.string.avrg_tap, "");
-        ((TextView) findViewById(R.id.txtResult)).setText(result);
+        ((TextView) findViewById(R.id.txtResult)).setText(result); //Leert das Ergebnis-Feld
         stats.remove(stats.size() - 1);
     }
 
@@ -199,7 +200,7 @@ public class CalculatorActivity extends AppCompatActivity {
         dialog.show();
     }
 
-    //Errechnet die neuen Chancen nach Neustart, um potenzielle Änderungen der Eigenschaften widerzuspiegeln
+    //Errechnet die neuen Chancen nach Neustart der Aktivität, um potenzielle Änderungen der Eigenschaften widerzuspiegeln, beispielsweise nach der Rückkehr aus der Stats Aktivität.
     @Override
     protected void onRestart() {
         if (canCalculate) {
