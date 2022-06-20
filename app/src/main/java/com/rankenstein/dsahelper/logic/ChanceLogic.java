@@ -56,7 +56,9 @@ public class ChanceLogic {
                     }
                     if (eig1 >= erg1 && eig2 >= erg2 && eig3 >= erg3) { //normale Probe
                         passed++;
-                        sumTaP += Math.min(tap3, taw); //Falls TaP*>TaW addiere TaW Punkte
+                        if (tap3 > 0) {
+                            sumTaP += Math.min(tap3, taw); //Falls TaP*>TaW addiere TaW Punkte
+                        }
                     }
 
                 }
