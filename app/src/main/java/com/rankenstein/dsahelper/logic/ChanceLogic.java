@@ -20,7 +20,7 @@ public class ChanceLogic {
             int tap1 = tap; //bearbeitbarer TaW Zwischenstand
 
             //Gleicht Differenz zwischen Würfelergebnis und Eigenschaft mit TaW aus und verringert TaP dementsprechend
-            if (erg1 > eig1 && tap1 > 0 && erg1 - tap1 <= eig1) {
+            if (erg1 > eig1 && tap1 >= erg1 - eig1) {
                 tap1 -= erg1 - eig1;
                 erg1 -= erg1 - eig1;
             }
@@ -30,7 +30,7 @@ public class ChanceLogic {
                 int tap2 = tap1; //bearbeitbarer TaW Zwischenstand
 
                 //Gleicht Differenz zwischen Würfelergebnis und Eigenschaft mit TaP aus
-                if (erg2 > eig2 && tap2 > 0 && erg2 - tap2 <= eig2) {
+                if (erg2 > eig2 && tap2 >= erg2 - eig2) {
                     tap2 -= erg2 - eig2;
                     erg2 -= erg2 - eig2;
                 }
@@ -40,7 +40,7 @@ public class ChanceLogic {
                     int tap3 = tap2; //bearbeitbarer TaW Zwischenstand
 
                     //Gleicht Differenz zwischen Würfelergebnis und Eigenschaft mit TaP aus
-                    if (erg3 > eig3 && tap3 > 0 && erg3 - tap3 <= eig3) {
+                    if (erg3 > eig3 && tap3 >= erg3 - eig3) {
                         tap3 -= erg3 - eig3;
                         erg3 -= erg3 - eig3;
                     }
@@ -56,9 +56,7 @@ public class ChanceLogic {
                     }
                     if (eig1 >= erg1 && eig2 >= erg2 && eig3 >= erg3) { //normale Probe
                         passed++;
-                        if (tap3 > 0) {
-                            sumTaP += Math.min(tap3, taw); //Falls TaP*>TaW addiere TaW Punkte
-                        }
+                        sumTaP += Math.min(tap3, taw); //Falls TaP*>TaW addiere TaW Punkte
                     }
 
                 }
