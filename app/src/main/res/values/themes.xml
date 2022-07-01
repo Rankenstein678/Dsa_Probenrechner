@@ -17,5 +17,11 @@
     <style name="resultTextStyle" parent="TextAppearance.AppCompat">
         <item name="android:textColor">@color/black</item>
     </style>
+    <style name="Theme.DsaHelper.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+    <style name="Theme.DsaHelper.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
+    <style name="Theme.DsaHelper.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
 
 </resources>

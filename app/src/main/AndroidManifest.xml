@@ -11,6 +11,9 @@
             android:supportsRtl="true"
             android:theme="@style/Theme.DsaHelper">
         <activity
+                android:name=".ui.SavedChecksActivity"
+                android:exported="true"/>
+        <activity
                 android:name=".ui.StatsActivity"
                 android:exported="true"/>
         <activity

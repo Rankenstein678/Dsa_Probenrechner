@@ -26,10 +26,27 @@
     <string name="ge">GE</string>
     <string name="ko">KO</string>
     <string name="kk">KK</string>
+    <string-array name="stats">
+        <item>MU</item>
+        <item>KL</item>
+        <item>IN</item>
+        <item>CH</item>
+        <item>FF</item>
+        <item>GE</item>
+        <item>KO</item>
+        <item>KK</item>
+    </string-array>
     <string name="results_empty">Chance:\ndurchschnittliche TaP*:</string>
     <string name="talentwert_0">Talentwert: 0</string>
     <string name="modifikator_0">Modifikator: 0</string>
     <string name="content_desc_d20">Bild einer Eigenschaft</string>
     <string name="zero">0</string>
+    <string name="title_activity_saved">SavedActivity</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+    <string name="no_checks_saved">Du hast noch keine Proben gespeichert</string>
 
 </resources>

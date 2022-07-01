@@ -5,17 +5,16 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.*;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.TextView;
+import android.widget.*;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.util.Consumer;
 import com.rankenstein.dsahelper.R;
 import com.rankenstein.dsahelper.logic.ChanceLogic;
+import com.rankenstein.dsahelper.logic.Check;
 import com.rankenstein.dsahelper.logic.Constants;
+import com.rankenstein.dsahelper.logic.CheckHelper;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -29,11 +28,16 @@ public class CalculatorActivity extends AppCompatActivity {
 
     private boolean canCalculate;
 
+    public static SharedPreferences prefsStats, prefsChecks;
+
     //Initialisiert alle Felder und lädt das Layout.
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calculator);
+
+        prefsStats = getSharedPreferences(Constants.PREFERENCE_FILE_STATS, MODE_PRIVATE);
+        prefsChecks = getSharedPreferences(Constants.PREFERENCE_FILE_CHECKS, MODE_PRIVATE);
 
         stats = new ArrayList<>();
         taw = 0;
@@ -45,7 +49,7 @@ public class CalculatorActivity extends AppCompatActivity {
         try {
             Objects.requireNonNull(getSupportActionBar()).setTitle(R.string.main_activity_title);
         } catch (NullPointerException e) {
-            Log.d("DSA-Probenrechner","Couldn't get Action Bar");
+            Log.d("DSA-Probenrechner", "Couldn't get Action Bar");
         }
 
     }
@@ -155,10 +159,9 @@ public class CalculatorActivity extends AppCompatActivity {
     //Errechnet die Chance und updated das UI
     private void calculateChance() {
         //Lädt die Eigenschaftswerte aus dem lokalen Speicher (Shared Preferences).
-        SharedPreferences prefs = getSharedPreferences(Constants.PREFERENCE_FILE_STATS, MODE_PRIVATE);
-        int e1 = prefs.getInt(stats.get(0), 0);
-        int e2 = prefs.getInt(stats.get(1), 0);
-        int e3 = prefs.getInt(stats.get(2), 0);
+        int e1 = prefsStats.getInt(stats.get(0), 0);
+        int e2 = prefsStats.getInt(stats.get(1), 0);
+        int e3 = prefsStats.getInt(stats.get(2), 0);
         //Lädt das Ergebnis
         double[] results = ChanceLogic.calculateChance(e1, e2, e3, taw, mod);
 
@@ -193,8 +196,7 @@ public class CalculatorActivity extends AppCompatActivity {
         //Öffnet die Tastatur
         AlertDialog dialog = builder.create();
         txtInput.requestFocus();
-        dialog.getWindow().setSoftInputMode(
-                WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+        dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
 
         //Erstellt den Dialog.
         dialog.show();
@@ -217,6 +219,17 @@ public class CalculatorActivity extends AppCompatActivity {
             //Lädt das neue Fenster (Aktivität)
             Intent intent = new Intent(CalculatorActivity.this, StatsActivity.class);
             startActivity(intent);
+            return true;
+        } else if (item.getItemId() == R.id.action_list) {
+            Intent intent = new Intent(CalculatorActivity.this, SavedChecksActivity.class);
+            startActivity(intent);
+            return true;
+        } else if (item.getItemId() == R.id.save) {
+            if (!canCalculate) {
+                Toast.makeText(this, "Gib 3 Eigenschaften an", Toast.LENGTH_SHORT).show();
+                return false;
+            }
+            CheckHelper.appendCheck(new Check("PLACEHOLDER", stats.get(0), stats.get(1), stats.get(2), taw, mod));
             return true;
         } else {
             return super.onOptionsItemSelected(item);

@@ -30,7 +30,7 @@ public class StatsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_stats);
 
         //Lädt zwischen App-Starts erhaltene Informationen aus dem lokalen Speicher
-        sharedPrefs = getSharedPreferences(Constants.PREFERENCE_FILE_STATS, MODE_PRIVATE);
+        sharedPrefs = CalculatorActivity.prefsStats;
         initViews();
 
         //Versucht den Titel der App Bar zu ändern.

@@ -13,5 +13,8 @@ public class Constants {
 
     //Speichert den Key für die Stats Local Storage Datei
     public static final String PREFERENCE_FILE_STATS = "com.rankenstein.dsahelper.stats";
+    public static final String PREFERENCE_FILE_CHECKS = "com.rankenstein.dsahelper.checks";
+
+    public static final String KEY_CHECKS = "checks";
 
 }
