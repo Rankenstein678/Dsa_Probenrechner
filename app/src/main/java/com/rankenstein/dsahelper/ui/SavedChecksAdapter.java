@@ -19,7 +19,7 @@ public class SavedChecksAdapter extends RecyclerView.Adapter<SavedChecksAdapter.
     private final ArrayList<Check> localCheckList;
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        private final TextView txtName, txtStats, txtChance;
+        private final TextView txtName, txtStats, txtChance,txtTaw,txtMod;
 
         private final ImageButton btnDelete;
 
@@ -29,6 +29,8 @@ public class SavedChecksAdapter extends RecyclerView.Adapter<SavedChecksAdapter.
             txtName = itemView.findViewById(R.id.txtName);
             txtStats = itemView.findViewById(R.id.txtStats);
             txtChance = itemView.findViewById(R.id.txtChance);
+            txtTaw = itemView.findViewById(R.id.txtTaw);
+            txtMod = itemView.findViewById(R.id.txtMod);
             btnDelete = itemView.findViewById(R.id.btnDelete);
         }
     }
@@ -54,6 +56,8 @@ public class SavedChecksAdapter extends RecyclerView.Adapter<SavedChecksAdapter.
         holder.txtChance.setText(chance);
         String stats = check.getE1() + "-" + check.getE2() + "-" + check.getE3();
         holder.txtStats.setText(stats);
+        holder.txtTaw.setText(holder.txtTaw.getContext().getString(R.string.taw,check.getTaw()));
+        holder.txtMod.setText(holder.txtMod.getContext().getString(R.string.mod,check.getMod()));
 
         holder.btnDelete.setOnClickListener(v -> {
             localCheckList.remove(position);

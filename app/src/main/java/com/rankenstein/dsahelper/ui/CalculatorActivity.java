@@ -229,7 +229,23 @@ public class CalculatorActivity extends AppCompatActivity {
                 Toast.makeText(this, "Gib 3 Eigenschaften an", Toast.LENGTH_SHORT).show();
                 return false;
             }
-            CheckHelper.appendCheck(new Check("PLACEHOLDER", stats.get(0), stats.get(1), stats.get(2), taw, mod));
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle("Name");
+            builder.setCancelable(true);
+            View inflatedView = LayoutInflater.from(this).inflate(R.layout.text_input, findViewById(R.id.content), false);
+            final EditText txtInput = inflatedView.findViewById(R.id.input);
+            builder.setView(inflatedView);
+            builder.setPositiveButton(R.string.ok, (dialog, which) -> {
+                String name = !txtInput.getText().toString().isEmpty()?txtInput.getText().toString():getString(R.string.new_check);
+                CheckHelper.appendCheck(new Check(name, stats.get(0), stats.get(1), stats.get(2), taw, mod));
+            });
+            builder.setNegativeButton(R.string.cancel, (dialog, which) -> dialog.cancel());
+            AlertDialog dialog = builder.create();
+            txtInput.requestFocus();
+            dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+            dialog.show();
+
             return true;
         } else {
             return super.onOptionsItemSelected(item);

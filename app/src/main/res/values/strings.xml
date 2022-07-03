@@ -5,6 +5,8 @@
 
     <string name="talentwert">Talentwert: %1$d</string>
     <string name="modifikator">Modifikator: %1$d</string>
+    <string name="taw">TaW: %1$d</string>
+    <string name="mod">Mod: %1$d</string>
     <string name="ok">Okay</string>
     <string name="cancel">Abbrechen</string>
     <string name="chance">Chance: %1$s</string>
@@ -48,5 +50,5 @@
     <string name="next">Next</string>
     <string name="previous">Previous</string>
     <string name="no_checks_saved">Du hast noch keine Proben gespeichert</string>
-
+    <string name="new_check">Neue Probe</string>
 </resources>
