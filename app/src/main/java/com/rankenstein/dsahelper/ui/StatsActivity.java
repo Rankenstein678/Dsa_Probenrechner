@@ -1,5 +1,6 @@
 package com.rankenstein.dsahelper.ui;
 
+import android.annotation.SuppressLint;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
@@ -12,6 +13,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.material.snackbar.Snackbar;
 import com.rankenstein.dsahelper.R;
+import com.rankenstein.dsahelper.logic.CheckHelper;
 import com.rankenstein.dsahelper.logic.Constants;
 
 import java.util.Objects;
@@ -82,6 +84,7 @@ public class StatsActivity extends AppCompatActivity {
     }
 
     //Speichert die Eigenschaften im Lokalen Speicher (Shared Preferences).
+    @SuppressLint("ApplySharedPref")
     private void saveStats() {
         changesSaved = true;
 
@@ -94,7 +97,9 @@ public class StatsActivity extends AppCompatActivity {
         editor.putInt(Constants.GE, Integer.parseInt(numGE.getText().toString()));
         editor.putInt(Constants.KO, Integer.parseInt(numKO.getText().toString()));
         editor.putInt(Constants.KK, Integer.parseInt(numKK.getText().toString()));
-        editor.apply();
+        editor.commit();
+
+        CheckHelper.recalculate();
     }
 
     //Lädt die gespeicherten Eigenschaften und setzt sie in die Textfelder ein.

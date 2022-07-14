@@ -14,6 +14,16 @@ public class CheckHelper {
         return serializedList.isEmpty() ? new ArrayList<>() : gson.fromJson(serializedList, TypeToken.getParameterized(ArrayList.class, Check.class).getType());
 
     }
+    public static void recalculate() {
+        ArrayList<Check> checks = CheckHelper.getChecks();
+        for(Check c : checks) {
+            c.calculate();
+        }
+        Gson gson = new Gson();
+        SharedPreferences.Editor e = CalculatorActivity.prefsChecks.edit();
+        e.putString(Constants.KEY_CHECKS,gson.toJson(checks));
+        e.apply();
+    }
 
     public static void appendCheck(Check check) {
         Gson gson = new Gson();

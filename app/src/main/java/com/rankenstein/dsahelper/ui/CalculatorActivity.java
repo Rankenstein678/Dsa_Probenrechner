@@ -13,8 +13,8 @@ import androidx.core.util.Consumer;
 import com.rankenstein.dsahelper.R;
 import com.rankenstein.dsahelper.logic.ChanceLogic;
 import com.rankenstein.dsahelper.logic.Check;
-import com.rankenstein.dsahelper.logic.Constants;
 import com.rankenstein.dsahelper.logic.CheckHelper;
+import com.rankenstein.dsahelper.logic.Constants;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -92,14 +92,27 @@ public class CalculatorActivity extends AppCompatActivity {
 
         //Lädt die Zurück-Tasten
         findViewById(R.id.btnBack).setOnClickListener((View v) -> removeStat());
-        findViewById(R.id.btnClear).setOnClickListener((View v) -> {
-            //Entfernt alle Eigenschaften der Liste und setzt TaW und Mod zurück.
-            while (!stats.isEmpty()) removeStat();
-            taw = 0;
-            ((Button) findViewById(R.id.btn_taw)).setText(getString(R.string.talentwert, taw));
-            mod = 0;
-            ((Button) findViewById(R.id.btn_mod)).setText(getString(R.string.modifikator, mod));
-        });
+        findViewById(R.id.btnClear).setOnClickListener((View v) -> clear());
+    }
+
+    @Override
+    protected void onStart() {
+        String ex = getIntent().getStringExtra("check");
+        if (ex != null) {
+            String[] i = getIntent().getStringExtra("check").split(",");
+            Check c = new Check("", i[0], i[1], i[2], Integer.parseInt(i[3]), Integer.parseInt(i[4]));
+            loadCheck(c);
+        }
+        super.onStart();
+    }
+
+    private void clear() {
+        //Entfernt alle Eigenschaften der Liste und setzt TaW und Mod zurück.
+        while (!stats.isEmpty()) removeStat();
+        taw = 0;
+        ((Button) findViewById(R.id.btn_taw)).setText(getString(R.string.talentwert, taw));
+        mod = 0;
+        ((Button) findViewById(R.id.btn_mod)).setText(getString(R.string.modifikator, mod));
     }
 
     //Entfernt eine Eigenschaft und das dazugehörige Bild. Setzt auch das Ergebnis zurück.
@@ -202,6 +215,16 @@ public class CalculatorActivity extends AppCompatActivity {
         dialog.show();
     }
 
+    public void loadCheck(Check c) {
+        clear();
+        addStat(c.getE1());
+        addStat(c.getE2());
+        addStat(c.getE3());
+        taw = c.getTaw();
+        mod = c.getMod();
+        calculateChance();
+    }
+
     //Errechnet die neuen Chancen nach Neustart der Aktivität, um potenzielle Änderungen der Eigenschaften widerzuspiegeln, beispielsweise nach der Rückkehr aus der Stats Aktivität.
     @Override
     protected void onRestart() {
@@ -237,7 +260,7 @@ public class CalculatorActivity extends AppCompatActivity {
             final EditText txtInput = inflatedView.findViewById(R.id.input);
             builder.setView(inflatedView);
             builder.setPositiveButton(R.string.ok, (dialog, which) -> {
-                String name = !txtInput.getText().toString().isEmpty()?txtInput.getText().toString():getString(R.string.new_check);
+                String name = !txtInput.getText().toString().isEmpty() ? txtInput.getText().toString() : getString(R.string.new_check);
                 CheckHelper.appendCheck(new Check(name, stats.get(0), stats.get(1), stats.get(2), taw, mod));
             });
             builder.setNegativeButton(R.string.cancel, (dialog, which) -> dialog.cancel());

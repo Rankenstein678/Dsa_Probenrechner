@@ -5,16 +5,18 @@
     <item
             android:id="@+id/save"
             android:icon="@drawable/ic_save"
-            android:title="Speichern"
+            android:title="@string/save"
+            app:showAsAction="ifRoom"/>
+
+    <item
+            android:id="@+id/action_list"
+            android:icon="@drawable/ic_list"
+            android:title="@string/saved_checks"
             app:showAsAction="ifRoom"/>
     <item
             android:id="@+id/action_stats"
             android:icon="@drawable/ic_person"
-            android:title="Eigenschaften"
+            android:title="@string/stats_activity_title"
             app:showAsAction="ifRoom"/>
-    <item
-            android:id="@+id/action_list"
-            android:icon="@drawable/ic_list"
-            android:title="PLACEHOLDER"
-            app:showAsAction="ifRoom"/>
+
 </menu>

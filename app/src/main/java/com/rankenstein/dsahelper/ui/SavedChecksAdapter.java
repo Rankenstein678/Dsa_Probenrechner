@@ -17,6 +17,8 @@ import java.util.ArrayList;
 
 public class SavedChecksAdapter extends RecyclerView.Adapter<SavedChecksAdapter.ViewHolder> {
     private final ArrayList<Check> localCheckList;
+    private final SavedChecksActivity activity;
+    private final RecyclerView rec;
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         private final TextView txtName, txtStats, txtChance,txtTaw,txtMod;
@@ -35,14 +37,20 @@ public class SavedChecksAdapter extends RecyclerView.Adapter<SavedChecksAdapter.
         }
     }
 
-    public SavedChecksAdapter(ArrayList<Check> localCheckList) {
+    public SavedChecksAdapter(ArrayList<Check> localCheckList, SavedChecksActivity checksActivity, RecyclerView rec) {
         this.localCheckList = localCheckList;
+        activity = checksActivity;
+        this.rec = rec;
     }
 
     @NotNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull @NotNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.check_list_item, parent, false);
+        view.setOnClickListener(v -> {
+            int itemPosition = rec.getChildLayoutPosition(view);
+            activity.loadCheck(localCheckList.get(itemPosition));
+        });
         return new ViewHolder(view);
 
     }
@@ -64,6 +72,7 @@ public class SavedChecksAdapter extends RecyclerView.Adapter<SavedChecksAdapter.
             notifyItemRemoved(position);
             CheckHelper.deleteCheck(position);
         });
+
     }
 
 
